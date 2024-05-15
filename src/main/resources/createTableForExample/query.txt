@@ -1,0 +1,27 @@
+CREATE TABLE customer (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255),
+    balance NUMERIC
+);
+
+CREATE TABLE product (
+    id SERIAL PRIMARY KEY,
+    product_name VARCHAR(255),
+    price NUMERIC,
+    quantity INT
+);
+
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    customer_id BIGINT REFERENCES customer(id),
+    total_amount NUMERIC,
+    products JSONB
+);
+
+CREATE TABLE orders_products (
+    order_id BIGINT REFERENCES orders(id),
+    product_id BIGINT REFERENCES product(id),
+    PRIMARY KEY (order_id, product_id),
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (product_id) REFERENCES product(id)
+);

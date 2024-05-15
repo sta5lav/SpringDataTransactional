@@ -78,6 +78,6 @@ public class OrderServiceImpl implements OrderService {
         order.setTotalAmount(orderDto.getTotalAmount());
         System.out.println(order);
         orderRepository.save(order);
-        return orderDto;
+        return orderMapper.getOrderDtoFromOrder(order);
     }
 }

@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
-    //@Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     Optional<Customer> findById(Long id);
 
 }

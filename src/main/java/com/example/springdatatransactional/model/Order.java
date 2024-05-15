@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -20,7 +20,7 @@ public class Order {
     @ManyToOne
     private Customer customer;
 
-    @JoinColumn(name = "products")
+    @Column(name = "products")
     @OneToMany
     private List<Product> products;
 
