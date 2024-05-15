@@ -5,8 +5,8 @@ import com.example.springdatatransactional.model.Product;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface ProductMapper {
+public abstract class ProductMapper {
 
-    ProductDto getProductDtoFromProduct(Product product);
-    Product getProductFromProductDto(ProductDto productDto);
+   public abstract ProductDto getProductDtoFromProduct(Product product);
+   public abstract Product getProductFromProductDto(ProductDto productDto);
 }
