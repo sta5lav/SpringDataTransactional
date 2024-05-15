@@ -7,6 +7,7 @@ import com.example.springdatatransactional.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,7 +74,7 @@ public class ProductServiceImpl implements ProductService {
         for (Product s : products) {
 
             //Получаем продукт из репозитория на основе айди продукта в ордере
-            Product productOnRepository = productRepository.findById(s.getId()).orElse(null);
+            Product productOnRepository = productRepository.findWithLockById(s.getId());
 
             //Проверяем есть ли в наличии данный продукт и хватает ли его для оформления заказа
             if(productOnRepository == null || productOnRepository.getQuantity() < s.getQuantity()){
@@ -86,16 +87,18 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public boolean setQuantityProduct(List<Product> products) {
+    public List<Product> setQuantityProduct(List<Product> products) {
         if (checkProductsOnQuantity(products).containsValue(false)) {
-            return false;
+            return null;
         }
+        List<Product> resultProducts = new ArrayList<>();
         for (Product s : products) {
             Product productOnRepository = productRepository.findById(s.getId()).get();
             productOnRepository.setQuantity(productOnRepository.getQuantity() - s.getQuantity());
+            resultProducts.add(productOnRepository);
             productRepository.save(productOnRepository);
         }
-        return false;
+        return resultProducts;
     }
 
 

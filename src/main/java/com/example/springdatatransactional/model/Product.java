@@ -1,21 +1,25 @@
 package com.example.springdatatransactional.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Entity
 @Data
+@Table(name = "product")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "product_name")
     private String productName;
+
+    @Column(name = "price")
     private BigDecimal price;
+
+    @Column(name = "quantity")
     private int quantity;
 
 }

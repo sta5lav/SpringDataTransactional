@@ -14,6 +14,9 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
     List<Product> findAll();
 
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
+
     Optional<Product> findById(Long id);
+
+    @Lock(LockModeType.PESSIMISTIC_READ)
+    Product findWithLockById(Long id);
 }

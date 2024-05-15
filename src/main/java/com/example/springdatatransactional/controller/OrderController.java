@@ -1,6 +1,7 @@
 package com.example.springdatatransactional.controller;
 
 import com.example.springdatatransactional.dto.OrderDto;
+import com.example.springdatatransactional.dto.PlaceOrderDto;
 import com.example.springdatatransactional.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -18,7 +18,7 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public boolean checkBalanceForPurchase(Long id, BigDecimal bigDecimal) {
-        if (getCustomerInfo(id) != null && (getCustomerInfo(id).getBalance().compareTo(bigDecimal)) >= 0) {
+        if (getCustomerInfo(id) != null && getCustomerInfo(id).getBalance().compareTo(bigDecimal) >= 0) {
                 return true;
         }
         return false;
@@ -34,13 +34,13 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Transactional
     @Override
-    public boolean setBalanceCustomer(Long id, BigDecimal bigDecimal) {
+    public Customer setBalanceCustomer(Long id, BigDecimal bigDecimal) {
         if (!checkBalanceForPurchase(id, bigDecimal)) {
-            return false;
+            return null;
         }
         Customer customer = customerRepository.findById(id).get();
         customer.setBalance(customer.getBalance().subtract(bigDecimal));
         customerRepository.save(customer);
-        return true;
+        return customer;
     }
 }

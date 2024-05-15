@@ -10,5 +10,5 @@ public interface CustomerService {
 
     Customer getCustomerInfo(Long id);
 
-    boolean setBalanceCustomer(Long id, BigDecimal bigDecimal);
+    Customer setBalanceCustomer(Long id, BigDecimal bigDecimal);
 }

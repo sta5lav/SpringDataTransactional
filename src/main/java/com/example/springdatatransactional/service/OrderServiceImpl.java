@@ -1,6 +1,7 @@
 package com.example.springdatatransactional.service;
 
 import com.example.springdatatransactional.dto.OrderDto;
+import com.example.springdatatransactional.dto.PlaceOrderDto;
 import com.example.springdatatransactional.mapper.OrderMapper;
 import com.example.springdatatransactional.model.Order;
 import com.example.springdatatransactional.repository.OrderRepository;
@@ -71,9 +72,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public OrderDto placeOrder(OrderDto orderDto) {
-        Order order = orderMapper.getOrderFromOrderDto(orderDto);
-        customerService.setBalanceCustomer(orderDto.getCustomer().getId(), orderDto.getTotalAmount());
-        productService.setQuantityProduct(orderDto.getProducts());
+        Order order = new Order();
+        order.setCustomer(customerService.setBalanceCustomer(orderDto.getCustomer().getId(), orderDto.getTotalAmount()));
+        order.setProducts(productService.setQuantityProduct(orderDto.getProducts()));
+        order.setTotalAmount(orderDto.getTotalAmount());
+        System.out.println(order);
         orderRepository.save(order);
         return orderDto;
     }

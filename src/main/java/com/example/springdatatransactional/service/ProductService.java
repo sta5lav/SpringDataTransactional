@@ -19,5 +19,5 @@ public interface ProductService {
 
     Map<Long, Boolean> checkProductsOnQuantity(List<Product> products);
 
-    boolean setQuantityProduct(List<Product> products);
+    List<Product> setQuantityProduct(List<Product> products);
 }
